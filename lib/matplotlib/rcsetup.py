@@ -501,6 +501,8 @@ class ValidateInterval(object):
 
 # a map from key -> value, converter
 defaultParams = {
+    'style': ['', validate_stringlist],
+
     'backend':           ['Agg', validate_backend],  # agg is certainly
                                                       # present
     'backend_fallback':  [True, validate_bool],  # agg is certainly present

@@ -65,6 +65,7 @@ def use(style):
         styles = [style]
     else:
         styles = style
+    styles = get_substyles(styles)
 
     for style in styles:
         if not cbook.is_string_like(style):
@@ -83,6 +84,75 @@ def use(style):
                        "list of available styles.")
                 raise IOError(msg % style)
 
+
+def get_substyles(styles):
+    """ Returns a list of all substyles in recursion order.
+
+    Parameters:
+    -----------
+    styles : list
+
+    Example :
+    ---------
+    Let us consider multiple stylesheet calling each other :
+
+    main
+    |
+    |- a
+    |  |- a1
+    |  |- a2
+    |
+    |- b
+    |  |- b1
+    |  |- b2
+    |
+    |- c
+       |- c1
+       |- c2
+
+    This means that `main` calls `a`, `b`, and `c` with the option `style: a, b, c`
+    Similar pattern for a, b and c.
+
+    When calling `matplotlib.style.use(['main']), we will call all the
+    stylesheets recursively add apply all styles. In this example, it would
+    return the following list :
+
+    ['main', 'a', 'a1', 'a2', 'b', 'b1', 'b2', 'c', 'c1', 'c2']
+
+    """
+    has_substyles = True
+    full_styles = []
+    temp_styles = styles[:]
+    while has_substyles:
+        has_substyles = False
+        for style in styles:
+            if style in full_styles:
+                continue
+            full_styles.append(style)
+            try:
+                style_dic = library[style]
+            except KeyError:
+                msg = ("'%s' not found in the style library and input is "
+                       "not a valid URL or path. See `style.available` for "
+                       "list of available styles.")
+                raise KeyError(msg % style)
+            if style_dic.get('style', None):
+                has_substyles = True
+                substyle = style_dic['style']
+                temp_styles.insert(styles.index(style)+1, substyle)
+
+            full_sub = []
+            for i in temp_styles:
+                if type(i) is list:
+                    for k in i:
+                        full_sub.append(k)
+                else:
+                    full_sub.append(i)
+            temp_styles = full_sub[:]
+        styles = temp_styles[:]
+    print(styles)
+
+    return styles
 
 @contextlib.contextmanager
 def context(style, after_reset=False):
