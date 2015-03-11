@@ -150,8 +150,6 @@ def get_substyles(styles):
                     full_sub.append(i)
             temp_styles = full_sub[:]
         styles = temp_styles[:]
-    print(styles)
-
     return styles
 
 @contextlib.contextmanager
