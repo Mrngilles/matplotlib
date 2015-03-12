@@ -125,6 +125,16 @@ def validate_int(s):
     except ValueError:
         raise ValueError('Could not convert "%s" to int' % s)
 
+def validate_int_or_None(s):
+    """if not None, tries to validate as an int"""
+    if s=='None':
+        s = None
+    if s is None:
+        return None
+    try:
+        return int(s)
+    except ValueError:
+        raise ValueError('Could not convert "%s" to int' % s)
 
 def validate_fonttype(s):
     """
@@ -327,6 +337,20 @@ validate_mathtext_default = ValidateInStrings(
 validate_verbose = ValidateInStrings(
     'verbose',
     ['silent', 'helpful', 'debug', 'debug-annoying'])
+
+def validate_whiskers(s):
+    if s=='range':
+        return 'range'
+    else:
+        try:
+            v = validate_nseq_float(2)(s)
+            return v
+        except:
+            try:
+                v = float(s)
+                return v
+            except:
+                raise ValueError('not a float')
 
 
 def deprecate_savefig_extension(value):
@@ -541,6 +565,38 @@ defaultParams = {
     'patch.facecolor':   ['b', validate_color],  # blue
     'patch.antialiased': [True, validate_bool],  # antialised (no jaggies)
 
+    ## Boxplot properties
+    'boxplot.notch': [False, validate_bool],
+    'boxplot.fliersymbol': ['b+', six.text_type],
+    'boxplot.vertical': [True, validate_bool],
+    'boxplot.whiskers': [1.5, validate_whiskers], # TODO write the good validation
+    'boxplot.bootstrap': [None, validate_int_or_None],
+    'boxplot.patchartist': [False, validate_bool],
+    'boxplot.showmean': [False, validate_bool],
+    'boxplot.showcaps': [True, validate_bool],
+    'boxplot.showbox': [True, validate_bool],
+    'boxplot.showfliers': [True, validate_bool],
+    'boxplot.meanline': [False, validate_bool],
+
+    'boxplot.boxprops.color': ['b', validate_color],
+    'boxplot.boxprops.linewidth': [1.0, validate_float],
+    'boxplot.boxprops.linestyle': ['-', six.text_type],
+
+    'boxplot.whiskersprops.color': ['b', validate_color],
+    'boxplot.whiskersprops.linewidth': [1.0, validate_float],
+    'boxplot.whiskersprops.linestyle': ['--', six.text_type],
+
+    'boxplot.capsprops.color': ['k', validate_color],
+    'boxplot.capsprops.linewidth': [1.0, validate_float],
+    'boxplot.capsprops.linestyle': ['-', six.text_type],
+
+    'boxplot.medianprops.color': ['r', validate_color],
+    'boxplot.medianprops.linewidth': [1.0, validate_float],
+    'boxplot.medianprops.linestyle': ['-', six.text_type],
+
+    'boxplot.meanprops.color': ['r', validate_color],
+    'boxplot.meanprops.linewidth': [1.0, validate_float],
+    'boxplot.meanprops.linestyle': ['-', six.text_type],
 
     ## font props
     'font.family':     [['sans-serif'], validate_stringlist],  # used by text object

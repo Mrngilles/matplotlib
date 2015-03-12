@@ -3050,6 +3050,10 @@ class Axes(_AxesBase):
 
         .. plot:: mpl_examples/statistics/boxplot_demo.py
         """
+        if not rcParams['boxplot.whiskers']==1.5:
+            whis = rcParams['boxplot.whiskers']
+        if rcParams['boxplot.bootstrap']:
+            bootstrap = rcParams['boxplot.bootstrap']
         bxpstats = cbook.boxplot_stats(x, whis=whis, bootstrap=bootstrap,
                                        labels=labels)
         # make sure we have a dictionary
@@ -3060,6 +3064,8 @@ class Axes(_AxesBase):
         # in bxp in the initial value of final_flierprops
         # handle all of the `sym` related logic here so we only have to pass
         # on the flierprops dict.
+        if rcParams['boxplot.fliersymbol']:
+            sym = rcParams['boxplot.fliersymbol']
         if sym is not None:
             # no-flier case, which should really be done with
             # 'showfliers=False' but none-the-less deal with it to keep back
@@ -3111,6 +3117,53 @@ class Axes(_AxesBase):
                                 stats['cilo'] = ci[0]
                             if ci[1] is not None:
                                 stats['cihi'] = ci[1]
+
+        if notch is False:
+            notch = rcParams['boxplot.notch']
+        if vert:
+            vert = rcParams['boxplot.vertical']
+        if patch_artist is False:
+            patch_artist = rcParams['boxplot.patchartist']
+        if showmeans is False:
+            showmeans = rcParams['boxplot.showmean']
+        if showcaps:
+            showcaps = rcParams['boxplot.showcaps']
+        if showbox:
+            showbox = rcParams['boxplot.showbox']
+        if showfliers:
+            showfliers = rcParams['boxplot.showfliers']
+        if meanline is False:
+            meanline = rcParams['boxplot.meanline']
+
+        if not boxprops:
+            boxprops = dict()
+            boxprops['color'] = rcParams['boxplot.boxprops.color']
+            boxprops['linewidth'] = rcParams['boxplot.boxprops.linewidth']
+            boxprops['linestyle'] = rcParams['boxplot.boxprops.linestyle']
+
+        if not whiskerprops:
+            whiskerprops = dict()
+            whiskerprops['color'] = rcParams['boxplot.whiskersprops.color']
+            whiskerprops['linewidth'] = rcParams['boxplot.whiskersprops.linewidth']
+            whiskerprops['linestyle'] = rcParams['boxplot.whiskersprops.linestyle']
+
+        if not capprops:
+            capprops = dict()
+            capprops['color'] = rcParams['boxplot.capsprops.color']
+            capprops['linewidth'] = rcParams['boxplot.capsprops.linewidth']
+            capprops['linestyle'] = rcParams['boxplot.capsprops.linestyle']
+
+        if not medianprops:
+            medianprops = dict()
+            medianprops['color'] = rcParams['boxplot.medianprops.color']
+            medianprops['linewidth'] = rcParams['boxplot.medianprops.linewidth']
+            medianprops['linestyle'] = rcParams['boxplot.medianprops.linestyle']
+
+        if not meanprops:
+            meanprops = dict()
+            meanprops['color'] = rcParams['boxplot.meanprops.color']
+            meanprops['linewidth'] = rcParams['boxplot.meanprops.linewidth']
+            meanprops['linestyle'] = rcParams['boxplot.meanprops.linestyle']
 
         artists = self.bxp(bxpstats, positions=positions, widths=widths,
                            vert=vert, patch_artist=patch_artist,
