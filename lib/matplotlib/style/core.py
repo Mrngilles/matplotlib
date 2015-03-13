@@ -129,13 +129,16 @@ def get_substyles(styles):
             if style in full_styles:
                 continue
             full_styles.append(style)
-            try:
+            if style in library:
                 style_dic = library[style]
-            except KeyError:
-                msg = ("'%s' not found in the style library and input is "
-                       "not a valid URL or path. See `style.available` for "
-                       "list of available styles.")
-                raise KeyError(msg % style)
+            else :
+                try:
+                    style_dic = rc_params_from_file(style, use_default_template=False)
+                except IOError:
+                    msg = ("'%s' not found in the style library and input is "
+                        "not a valid URL or path. See `style.available` for "
+                        "list of available styles.")
+                    raise IOError(msg % style)
             if style_dic.get('style', None):
                 has_substyles = True
                 substyle = style_dic['style']
