@@ -3688,8 +3688,7 @@ class Axes(_AxesBase):
             if facecolors is not None:
                 c = facecolors
             else:
-                color_cycle = self._get_lines.color_cycle
-                c = six.next(color_cycle)
+                c = 'b'
 
         self._process_unit_info(xdata=x, ydata=y, kwargs=kwargs)
         x = self.convert_xunits(x)
@@ -4513,8 +4512,6 @@ class Axes(_AxesBase):
             polys.append(X)
 
         collection = mcoll.PolyCollection(polys, **kwargs)
-        color_cycle = self._get_lines.color_cycle
-        collection.set_color(six.next(color_cycle))
 
         # now update the datalim and autoscale
         XY1 = np.array([x[where], y1[where]]).T
@@ -4623,8 +4620,6 @@ class Axes(_AxesBase):
             polys.append(Y)
 
         collection = mcoll.PolyCollection(polys, **kwargs)
-        color_cycle = self._get_lines.color_cycle
-        collection.set_color(six.next(color_cycle))
 
         # now update the datalim and autoscale
         X1Y = np.array([x1[where], y[where]]).T
