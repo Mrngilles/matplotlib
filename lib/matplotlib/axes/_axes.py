@@ -2889,11 +2889,11 @@ class Axes(_AxesBase):
 
         return errorbar_container  # (l0, caplines, barcols)
 
-    def boxplot(self, x, notch=False, sym=None, vert=True, whis=1.5,
-                positions=None, widths=None, patch_artist=False,
+    def boxplot(self, x, notch=None, sym=None, vert=None, whis=1.5,
+                positions=None, widths=None, patch_artist=None,
                 bootstrap=None, usermedians=None, conf_intervals=None,
-                meanline=False, showmeans=False, showcaps=True,
-                showbox=True, showfliers=True, boxprops=None, labels=None,
+                meanline=None, showmeans=None, showcaps=None,
+                showbox=None, showfliers=None, boxprops=None, labels=None,
                 flierprops=None, medianprops=None, meanprops=None,
                 capprops=None, whiskerprops=None, manage_xticks=True):
         """
@@ -3116,22 +3116,22 @@ class Axes(_AxesBase):
                             if ci[1] is not None:
                                 stats['cihi'] = ci[1]
 
-        if notch is False:
+        if notch is None:
             notch = rcParams['boxplot.notch']
-        if vert:
+        if vert is None:
             vert = rcParams['boxplot.vertical']
-        if patch_artist is False:
+        if patch_artist is None:
             patch_artist = rcParams['boxplot.patchartist']
-        if showmeans is False:
-            showmeans = rcParams['boxplot.showmean']
-        if showcaps:
-            showcaps = rcParams['boxplot.showcaps']
-        if showbox:
-            showbox = rcParams['boxplot.showbox']
-        if showfliers:
-            showfliers = rcParams['boxplot.showfliers']
-        if meanline is False:
+        if meanline is None:
             meanline = rcParams['boxplot.meanline']
+        if showmeans is None:
+            showmeans = rcParams['boxplot.showmean']
+        if showcaps is None:
+            showcaps = rcParams['boxplot.showcaps']
+        if showbox is None:
+            showbox = rcParams['boxplot.showbox']
+        if showfliers is None:
+            showfliers = rcParams['boxplot.showfliers']
 
         if flierprops.get('color') == 'b':
             flierprops['color'] = rcParams['boxplot.flierprops.color']
