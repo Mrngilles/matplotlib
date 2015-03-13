@@ -88,13 +88,13 @@ def use(style):
 def get_substyles(styles):
     """ Returns a list of all substyles in recursion order.
 
-    Parameters:
-    -----------
-    styles : list
+    Parameters
+    ----------
+    styles = list
 
-    Example :
-    ---------
-    Let us consider multiple stylesheet calling each other :
+    Example
+    -------
+    Let us consider multiple stylesheet calling each other
 
     main
     |
@@ -110,12 +110,12 @@ def get_substyles(styles):
        |- c1
        |- c2
 
-    This means that `main` calls `a`, `b`, and `c` with the option `style: a, b, c`
+    This means that `main` calls `a`, `b`, and `c`
     Similar pattern for a, b and c.
 
     When calling `matplotlib.style.use(['main']), we will call all the
     stylesheets recursively add apply all styles. In this example, it would
-    return the following list :
+    return the following list
 
     ['main', 'a', 'a1', 'a2', 'b', 'b1', 'b2', 'c', 'c1', 'c2']
 
