@@ -3050,7 +3050,7 @@ class Axes(_AxesBase):
 
         .. plot:: mpl_examples/statistics/boxplot_demo.py
         """
-        if not rcParams['boxplot.whiskers']==1.5:
+        if not rcParams['boxplot.whiskers'] == 1.5:
             whis = rcParams['boxplot.whiskers']
         if rcParams['boxplot.bootstrap']:
             bootstrap = rcParams['boxplot.bootstrap']
@@ -3064,8 +3064,6 @@ class Axes(_AxesBase):
         # in bxp in the initial value of final_flierprops
         # handle all of the `sym` related logic here so we only have to pass
         # on the flierprops dict.
-        if rcParams['boxplot.fliersymbol']:
-            sym = rcParams['boxplot.fliersymbol']
         if sym is not None:
             # no-flier case, which should really be done with
             # 'showfliers=False' but none-the-less deal with it to keep back

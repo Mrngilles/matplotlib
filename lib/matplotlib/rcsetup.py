@@ -567,7 +567,6 @@ defaultParams = {
 
     ## Boxplot properties
     'boxplot.notch': [False, validate_bool],
-    'boxplot.fliersymbol': ['b+', six.text_type],
     'boxplot.vertical': [True, validate_bool],
     'boxplot.whiskers': [1.5, validate_whiskers],
     'boxplot.bootstrap': [None, validate_int_or_None],
