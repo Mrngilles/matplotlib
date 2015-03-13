@@ -679,6 +679,8 @@ defaultParams = {
                                                                 # default draw on 'major'
                                                                 # 'minor' or 'both' kind of
                                                                 # axis locator
+    'axes.grid.axis':        ['both', six.text_type], # grid type.
+                                                      # Can be 'x', 'y', 'both'
     'axes.labelsize':        ['medium', validate_fontsize],  # fontsize of the
                                                              # x any y labels
     'axes.labelpad':         [5.0, validate_float], # space between label and axis

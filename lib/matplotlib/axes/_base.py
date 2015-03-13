@@ -905,7 +905,8 @@ class _AxesBase(martist.Artist):
         self.collections = []  # collection.Collection instances
         self.containers = []
 
-        self.grid(self._gridOn, which=rcParams['axes.grid.which'])
+        self.grid(self._gridOn, which=rcParams['axes.grid.which'],
+                    axis=rcParams['axes.grid.axis'])
         props = font_manager.FontProperties(
                     size=rcParams['axes.titlesize'],
                     weight=rcParams['axes.titleweight']
@@ -2184,6 +2185,9 @@ class _AxesBase(martist.Artist):
         if len(kwargs):
             b = True
         b = _string_to_bool(b)
+
+        self.xaxis.grid(False)
+        self.yaxis.grid(False)
 
         if axis == 'x' or axis == 'both':
             self.xaxis.grid(b, which=which, **kwargs)
