@@ -2186,6 +2186,7 @@ class _AxesBase(martist.Artist):
             b = True
         b = _string_to_bool(b)
 
+        # We need to disable both grids before replotting the wanted ones
         self.xaxis.grid(False)
         self.yaxis.grid(False)
 

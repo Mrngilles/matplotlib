@@ -3671,7 +3671,6 @@ class Axes(_AxesBase):
             else:
                 color_cycle = self._get_lines.color_cycle
                 c = six.next(color_cycle)
-                #c = 'b'  # the original default
 
         self._process_unit_info(xdata=x, ydata=y, kwargs=kwargs)
         x = self.convert_xunits(x)
