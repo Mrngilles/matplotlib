@@ -3135,6 +3135,23 @@ class Axes(_AxesBase):
         if meanline is False:
             meanline = rcParams['boxplot.meanline']
 
+        if flierprops.get('color') == 'b':
+            flierprops['color'] = rcParams['boxplot.flierprops.color']
+        if flierprops.get('marker') == '+':
+            flierprops['marker'] = rcParams['boxplot.flierprops.marker']
+        if not flierprops.get('markerfacecolor', None):
+            flierprops['markerfacecolor'] = rcParams[('boxplot.flierprops.'
+                                                        'markerfacecolor')]
+        if not flierprops.get('markeredgecolor', None):
+            flierprops['markeredgecolor'] = rcParams[('boxplot.flierprops.'
+                                                        'markeredgecolor')]
+        if not flierprops.get('markersize', None):
+            flierprops['markersize'] = rcParams[('boxplot.flierprops.'
+                                                    'markersize')]
+        if not flierprops.get('linestyle', None):
+            flierprops['linestyle'] = rcParams[('boxplot.flierprops.'
+                                                            'linestyle')]
+
         if not boxprops:
             boxprops = dict()
             boxprops['color'] = rcParams['boxplot.boxprops.color']
@@ -3144,8 +3161,10 @@ class Axes(_AxesBase):
         if not whiskerprops:
             whiskerprops = dict()
             whiskerprops['color'] = rcParams['boxplot.whiskersprops.color']
-            whiskerprops['linewidth'] = rcParams['boxplot.whiskersprops.linewidth']
-            whiskerprops['linestyle'] = rcParams['boxplot.whiskersprops.linestyle']
+            whiskerprops['linewidth'] = rcParams[('boxplot.whiskersprops.'
+                                                                'linewidth')]
+            whiskerprops['linestyle'] = rcParams[('boxplot.whiskersprops.'
+                                                                'linestyle')]
 
         if not capprops:
             capprops = dict()
@@ -3156,8 +3175,10 @@ class Axes(_AxesBase):
         if not medianprops:
             medianprops = dict()
             medianprops['color'] = rcParams['boxplot.medianprops.color']
-            medianprops['linewidth'] = rcParams['boxplot.medianprops.linewidth']
-            medianprops['linestyle'] = rcParams['boxplot.medianprops.linestyle']
+            medianprops['linewidth'] = rcParams[('boxplot.medianprops.'
+                                                                'linewidth')]
+            medianprops['linestyle'] = rcParams[('boxplot.medianprops.'
+                                                                'linestyle')]
 
         if not meanprops:
             meanprops = dict()

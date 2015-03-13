@@ -569,7 +569,7 @@ defaultParams = {
     'boxplot.notch': [False, validate_bool],
     'boxplot.fliersymbol': ['b+', six.text_type],
     'boxplot.vertical': [True, validate_bool],
-    'boxplot.whiskers': [1.5, validate_whiskers], # TODO write the good validation
+    'boxplot.whiskers': [1.5, validate_whiskers],
     'boxplot.bootstrap': [None, validate_int_or_None],
     'boxplot.patchartist': [False, validate_bool],
     'boxplot.showmean': [False, validate_bool],
@@ -577,6 +577,13 @@ defaultParams = {
     'boxplot.showbox': [True, validate_bool],
     'boxplot.showfliers': [True, validate_bool],
     'boxplot.meanline': [False, validate_bool],
+
+    'boxplot.flierprops.color': ['b', validate_color],
+    'boxplot.flierprops.marker': ['+', six.text_type],
+    'boxplot.flierprops.markerfacecolor': ['b', validate_color],
+    'boxplot.flierprops.markeredgecolor': ['k', validate_color],
+    'boxplot.flierprops.markersize': [6, validate_float],
+    'boxplot.flierprops.linestyle': ['-', six.text_type],
 
     'boxplot.boxprops.color': ['b', validate_color],
     'boxplot.boxprops.linewidth': [1.0, validate_float],
