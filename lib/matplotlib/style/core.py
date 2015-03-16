@@ -17,6 +17,7 @@ Core functions and attributes for the matplotlib style library:
 """
 import os
 import re
+import sys
 import contextlib
 
 import matplotlib as mpl
@@ -132,11 +133,16 @@ def get_substyles(styles):
             full_styles.append(style)
             if type(style) is dict:
                 continue
+            if sys.version_info[:2] >= (2, 7):
+                from collections import OrderedDict
+                if type(style) is OrderedDict:
+                    continue
             if style in library:
                 style_dic = library[style]
-            else :
+            else:
                 try:
-                    style_dic = rc_params_from_file(style, use_default_template=False)
+                    style_dic = rc_params_from_file(style,
+                                                use_default_template=False)
                 except IOError:
                     msg = ("'%s' not found in the style library and input is "
                         "not a valid URL or path. See `style.available` for "
@@ -157,6 +163,7 @@ def get_substyles(styles):
             temp_styles = full_sub[:]
         styles = temp_styles[:]
     return styles
+
 
 @contextlib.contextmanager
 def context(style, after_reset=False):
