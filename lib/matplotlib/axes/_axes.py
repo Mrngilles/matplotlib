@@ -3056,9 +3056,32 @@ class Axes(_AxesBase):
             bootstrap = rcParams['boxplot.bootstrap']
         bxpstats = cbook.boxplot_stats(x, whis=whis, bootstrap=bootstrap,
                                        labels=labels)
-        # make sure we have a dictionary
-        if flierprops is None:
-            flierprops = dict()
+
+        def _update_dict(dictionnary, rc_name, properties):
+            """ Loads properties in the dictionnary from rc file if not already
+            in the dictionnary"""
+            rc_str = 'boxplot.{}.{}'
+            if dictionnary is None:
+                dictionnary = dict()
+            for prop in properties:
+                if prop not in dictionnary:
+                    rc_param = rc_str.format(rc_name, prop)
+                    dictionnary[prop] = rcParams[rc_param]
+            return dictionnary
+
+        # Common property dictionnaries loading from rc
+        flier_props = ['color', 'marker', 'markerfacecolor',
+                       'markeredgecolor', 'markersize', 'linestyle']
+        default_props = ['color', 'linewidth', 'linestyle']
+
+        boxprops = _update_dict(boxprops, 'boxprops', default_props)
+        whiskerprops = _update_dict(whiskerprops, 'whiskerprops',default_props)
+        capprops = _update_dict(capprops, 'capprops', default_props)
+        medianprops = _update_dict(medianprops, 'medianprops',default_props)
+        meanprops = _update_dict(meanprops, 'meanprops', default_props)
+        flierprops = _update_dict(flierprops, 'flierprops', flier_props)
+
+
         # if non-default sym value, put it into the flier dictionary
         # the logic for providing the default symbol ('b+') now lives
         # in bxp in the initial value of final_flierprops
@@ -3132,57 +3155,6 @@ class Axes(_AxesBase):
             showbox = rcParams['boxplot.showbox']
         if showfliers is None:
             showfliers = rcParams['boxplot.showfliers']
-
-        if flierprops.get('color') == 'b':
-            flierprops['color'] = rcParams['boxplot.flierprops.color']
-        if flierprops.get('marker') == '+':
-            flierprops['marker'] = rcParams['boxplot.flierprops.marker']
-        if not flierprops.get('markerfacecolor', None):
-            flierprops['markerfacecolor'] = rcParams[('boxplot.flierprops.'
-                                                        'markerfacecolor')]
-        if not flierprops.get('markeredgecolor', None):
-            flierprops['markeredgecolor'] = rcParams[('boxplot.flierprops.'
-                                                        'markeredgecolor')]
-        if not flierprops.get('markersize', None):
-            flierprops['markersize'] = rcParams[('boxplot.flierprops.'
-                                                    'markersize')]
-        if not flierprops.get('linestyle', None):
-            flierprops['linestyle'] = rcParams[('boxplot.flierprops.'
-                                                            'linestyle')]
-
-        if not boxprops:
-            boxprops = dict()
-            boxprops['color'] = rcParams['boxplot.boxprops.color']
-            boxprops['linewidth'] = rcParams['boxplot.boxprops.linewidth']
-            boxprops['linestyle'] = rcParams['boxplot.boxprops.linestyle']
-
-        if not whiskerprops:
-            whiskerprops = dict()
-            whiskerprops['color'] = rcParams['boxplot.whiskersprops.color']
-            whiskerprops['linewidth'] = rcParams[('boxplot.whiskersprops.'
-                                                                'linewidth')]
-            whiskerprops['linestyle'] = rcParams[('boxplot.whiskersprops.'
-                                                                'linestyle')]
-
-        if not capprops:
-            capprops = dict()
-            capprops['color'] = rcParams['boxplot.capsprops.color']
-            capprops['linewidth'] = rcParams['boxplot.capsprops.linewidth']
-            capprops['linestyle'] = rcParams['boxplot.capsprops.linestyle']
-
-        if not medianprops:
-            medianprops = dict()
-            medianprops['color'] = rcParams['boxplot.medianprops.color']
-            medianprops['linewidth'] = rcParams[('boxplot.medianprops.'
-                                                                'linewidth')]
-            medianprops['linestyle'] = rcParams[('boxplot.medianprops.'
-                                                                'linestyle')]
-
-        if not meanprops:
-            meanprops = dict()
-            meanprops['color'] = rcParams['boxplot.meanprops.color']
-            meanprops['linewidth'] = rcParams['boxplot.meanprops.linewidth']
-            meanprops['linestyle'] = rcParams['boxplot.meanprops.linestyle']
 
         artists = self.bxp(bxpstats, positions=positions, widths=widths,
                            vert=vert, patch_artist=patch_artist,

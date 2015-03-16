@@ -588,13 +588,13 @@ defaultParams = {
     'boxplot.boxprops.linewidth': [1.0, validate_float],
     'boxplot.boxprops.linestyle': ['-', six.text_type],
 
-    'boxplot.whiskersprops.color': ['b', validate_color],
-    'boxplot.whiskersprops.linewidth': [1.0, validate_float],
-    'boxplot.whiskersprops.linestyle': ['--', six.text_type],
+    'boxplot.whiskerprops.color': ['b', validate_color],
+    'boxplot.whiskerprops.linewidth': [1.0, validate_float],
+    'boxplot.whiskerprops.linestyle': ['--', six.text_type],
 
-    'boxplot.capsprops.color': ['k', validate_color],
-    'boxplot.capsprops.linewidth': [1.0, validate_float],
-    'boxplot.capsprops.linestyle': ['-', six.text_type],
+    'boxplot.capprops.color': ['k', validate_color],
+    'boxplot.capprops.linewidth': [1.0, validate_float],
+    'boxplot.capprops.linestyle': ['-', six.text_type],
 
     'boxplot.medianprops.color': ['r', validate_color],
     'boxplot.medianprops.linewidth': [1.0, validate_float],
