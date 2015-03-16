@@ -65,6 +65,7 @@ def use(style):
         styles = [style]
     else:
         styles = style
+
     styles = get_substyles(styles)
 
     for style in styles:
@@ -90,7 +91,7 @@ def get_substyles(styles):
 
     Parameters
     ----------
-    styles = list
+    styles = list of str and/or dict
 
     Example
     -------
@@ -129,6 +130,8 @@ def get_substyles(styles):
             if style in full_styles:
                 continue
             full_styles.append(style)
+            if type(style) is dict:
+                continue
             if style in library:
                 style_dic = library[style]
             else :
