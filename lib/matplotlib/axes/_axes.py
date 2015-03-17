@@ -3084,7 +3084,7 @@ class Axes(_AxesBase):
 
         # Get correct value of linestyle if patchartist is on
         if patch_artist:
-            flierprops['linestyle'] = 'solid'
+            boxprops['linestyle'] = 'solid'
 
         # if non-default sym value, put it into the flier dictionary
         # the logic for providing the default symbol ('b+') now lives
