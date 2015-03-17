@@ -3060,7 +3060,7 @@ class Axes(_AxesBase):
         def _update_dict(dictionnary, rc_name, properties):
             """ Loads properties in the dictionnary from rc file if not already
             in the dictionnary"""
-            rc_str = 'boxplot.{}.{}'
+            rc_str = 'boxplot.{0}.{1}'
             if dictionnary is None:
                 dictionnary = dict()
             for prop in properties:
@@ -3075,12 +3075,16 @@ class Axes(_AxesBase):
         default_props = ['color', 'linewidth', 'linestyle']
 
         boxprops = _update_dict(boxprops, 'boxprops', default_props)
-        whiskerprops = _update_dict(whiskerprops, 'whiskerprops',default_props)
+        whiskerprops = _update_dict(whiskerprops, 'whiskerprops',
+                                                            default_props)
         capprops = _update_dict(capprops, 'capprops', default_props)
-        medianprops = _update_dict(medianprops, 'medianprops',default_props)
+        medianprops = _update_dict(medianprops, 'medianprops', default_props)
         meanprops = _update_dict(meanprops, 'meanprops', default_props)
         flierprops = _update_dict(flierprops, 'flierprops', flier_props)
 
+        # Get correct value of linestyle if patchartist is on
+        if patch_artist:
+            flierprops['linestyle'] = 'solid'
 
         # if non-default sym value, put it into the flier dictionary
         # the logic for providing the default symbol ('b+') now lives
